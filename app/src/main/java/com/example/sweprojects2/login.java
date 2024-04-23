@@ -13,6 +13,8 @@ public class login extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
+    private Button signupButton;
+
     private DBHelper dbHelper; // Add this line
 
     @Override
@@ -25,6 +27,7 @@ public class login extends AppCompatActivity {
         emailEditText = findViewById(R.id.editTextText);
         passwordEditText = findViewById(R.id.editTextText2);
         loginButton = findViewById(R.id.button2);
+        signupButton = findViewById(R.id.button3);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +58,14 @@ public class login extends AppCompatActivity {
                     // Invalid login credentials
                     Toast.makeText(login.this, "Invalid email or password.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(login.this, signup.class);
+                startActivity(intent);
             }
         });
     }
