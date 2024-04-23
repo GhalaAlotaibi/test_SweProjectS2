@@ -49,9 +49,8 @@ public class login extends AppCompatActivity {
                     // Redirect to home activity
                     Intent intent = new Intent(login.this, HomePageF.class);
                     // Pass the client ID to the home activity
-                    int clientId = dbHelper.getClientId(email); // Assuming you have a getClientId method in DBHelper
+                    int clientId = dbHelper.getClientId(email);
                     intent.putExtra("clientId", clientId);
-
                     startActivity(intent);
                     finish();
                 } else {

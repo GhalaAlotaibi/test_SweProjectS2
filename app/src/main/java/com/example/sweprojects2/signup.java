@@ -18,6 +18,7 @@ public class signup extends AppCompatActivity {
     private EditText birthdayEditText;
     private EditText passwordEditText;
     private Button signupButton;
+    private Button loginbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class signup extends AppCompatActivity {
         birthdayEditText = findViewById(R.id.editTextText55);
         passwordEditText = findViewById(R.id.editTextText2);
         signupButton = findViewById(R.id.button2);
+        loginbutton = findViewById(R.id.button3);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +52,14 @@ public class signup extends AppCompatActivity {
                 performSignup(name, email, phoneNumber, birthday, password);
             }
         });
+
+        loginbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(signup.this, login.class);
+                startActivity(intent);
+            }
+        });
     }
     private void performSignup(String name, String email, String phoneNumber, String birthday, String password) {
         DBHelper dbHelper = new DBHelper(signup.this);
@@ -66,7 +76,9 @@ public class signup extends AppCompatActivity {
         if (result){
             Toast.makeText(signup.this, "Client registered successfully", Toast.LENGTH_SHORT).show();
             // Redirect to home activity
-            Intent intent = new Intent(signup.this, login.class);
+            Intent intent = new Intent(signup.this, HomePageF.class);
+            int clientId = dbHelper.getClientId(email);
+            intent.putExtra("clientId", clientId);
             startActivity(intent);
             finish();
         }
