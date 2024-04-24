@@ -9,18 +9,23 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
-
+    private DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = findViewById(R.id.button);
+        dbHelper = new DBHelper(this);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, book.class);
+
+
+                Intent intent = new Intent(MainActivity.this, login.class);
                 startActivity(intent);
             }
+
             });
     }
 }

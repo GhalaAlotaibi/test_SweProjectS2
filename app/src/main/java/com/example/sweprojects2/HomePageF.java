@@ -13,6 +13,9 @@ public class HomePageF extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page_f);
+        Intent intent = getIntent();
+        int clientId = intent.getIntExtra("clientId", -1);
+
         // Find the LinearLayout views for the services
         LinearLayout service1Layout = findViewById(R.id.Service1);
         LinearLayout service2Layout = findViewById(R.id.Service2);
@@ -20,23 +23,13 @@ public class HomePageF extends AppCompatActivity {
 // Assuming you have a reference to the Service1 view
 
 // Set click listener
-        service1Layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the click event here
-                // You can navigate to the book page or perform any other action
 
-                // Example: Start the BookActivity
-                Intent intent = new Intent(HomePageF.this, book.class);
-                startActivity(intent);
-            }
-        });
         // Set click listeners for the service LinearLayouts
         service1Layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle click for Service1
-                navigateToBookPage();
+                navigateToBookPage(clientId);
             }
         });
 
@@ -44,7 +37,7 @@ public class HomePageF extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle click for Service2
-                navigateToBookPage();
+                navigateToBookPage(clientId);
             }
         });
 
@@ -52,14 +45,15 @@ public class HomePageF extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle click for Service3
-                navigateToBookPage();
+                navigateToBookPage(clientId);
             }
         });
     }
 
     // Method to navigate to the book page activity
-    private void navigateToBookPage() {
+    private void navigateToBookPage(int clientId) {
         Intent intent = new Intent(HomePageF.this, book.class);
+        intent.putExtra("clientId", clientId);
         startActivity(intent);
     }
 }

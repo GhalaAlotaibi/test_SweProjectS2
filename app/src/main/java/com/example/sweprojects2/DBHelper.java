@@ -284,6 +284,32 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return returnList;
     }
+    public boolean addStaff(String staffName, float rating, String specialty) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(StaffName, staffName);
+        values.put(Rating, rating);
+        values.put(Specialty, specialty);
+
+        long result = db.insert(Staff, null, values);
+        db.close();
+
+        return result != -1;
+    }
+    public boolean addService(String serviceName, String description, float price) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ServiceName, serviceName);
+        values.put(Description, description);
+        values.put(Price, price);
+
+        long result = db.insert(Service, null, values);
+        db.close();
+
+        return result != -1;
+    }
 }
 
 

@@ -1,6 +1,8 @@
 package com.example.sweprojects2;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,12 +22,12 @@ public class book extends AppCompatActivity {
     ListView lv_AppointmentList;
     ArrayAdapter<bookO> appointmentArrayAdapter;
     DBHelper dbHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        int clientId = intent.getIntExtra("clientId", -1);
 
         // Initialize UI components from layout
         btn_add = findViewById(R.id.btn_add);
@@ -65,6 +67,7 @@ public class book extends AppCompatActivity {
                     appointmentArrayAdapter = new ArrayAdapter<>(book.this,
                             android.R.layout.simple_list_item_1, dbHelper.getAllAppointments());
                     lv_AppointmentList.setAdapter(appointmentArrayAdapter);
+
                 }
 
             } catch (Exception e) {
@@ -142,6 +145,4 @@ public class book extends AppCompatActivity {
         // Handle search icon click
         Toast.makeText(this, "Search clicked", Toast.LENGTH_SHORT).show();
         return true;
-    }
-}
-
+    }}
