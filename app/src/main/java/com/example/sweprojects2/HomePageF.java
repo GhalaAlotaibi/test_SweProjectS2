@@ -17,7 +17,20 @@ public class HomePageF extends AppCompatActivity {
         LinearLayout service1Layout = findViewById(R.id.Service1);
         LinearLayout service2Layout = findViewById(R.id.Service2);
         LinearLayout service3Layout = findViewById(R.id.Service3);
+// Assuming you have a reference to the Service1 view
 
+// Set click listener
+        service1Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event here
+                // You can navigate to the book page or perform any other action
+
+                // Example: Start the BookActivity
+                Intent intent = new Intent(HomePageF.this, book.class);
+                startActivity(intent);
+            }
+        });
         // Set click listeners for the service LinearLayouts
         service1Layout.setOnClickListener(new View.OnClickListener() {
             @Override
