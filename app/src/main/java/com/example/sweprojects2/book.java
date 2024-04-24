@@ -1,9 +1,8 @@
 package com.example.sweprojects2;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,12 +21,11 @@ public class book extends AppCompatActivity {
     ListView lv_AppointmentList;
     ArrayAdapter<bookO> appointmentArrayAdapter;
     DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
-        Intent intent = getIntent();
-        int clientId = intent.getIntExtra("clientId", -1);
 
         // Initialize UI components from layout
         btn_add = findViewById(R.id.btn_add);
@@ -39,10 +37,10 @@ public class book extends AppCompatActivity {
         lv_AppointmentList = findViewById(R.id.lv_AppointmentList); // List view for displaying appointments
         dbHelper = new DBHelper(book.this);
 
-        //showAppointmentsOnListView(dbHelper);
 
         btn_view.setOnClickListener(v -> {
-            showAppointmentsOnListView(dbHelper);
+            Log.d("Button Click", "View button clicked");
+            showAppointmentsOnListView();
         });
 
         btn_add.setOnClickListener(v -> {
@@ -67,7 +65,6 @@ public class book extends AppCompatActivity {
                     appointmentArrayAdapter = new ArrayAdapter<>(book.this,
                             android.R.layout.simple_list_item_1, dbHelper.getAllAppointments());
                     lv_AppointmentList.setAdapter(appointmentArrayAdapter);
-
                 }
 
             } catch (Exception e) {
@@ -88,14 +85,14 @@ public class book extends AppCompatActivity {
         });
     }
 
-    private void showAppointmentsOnListView(DBHelper dbHelper) {
-        if (lv_AppointmentList.getAdapter() != null) {
-            // Appointments are already shown, hide them
-            lv_AppointmentList.setAdapter(null);
+    private void showAppointmentsOnListView() {
+        List<bookO> appointments = dbHelper.getAllAppointments();
+
+        if (appointments.isEmpty()) {
+            Toast.makeText(book.this, "No appointments found!", Toast.LENGTH_SHORT).show();
         } else {
-            // Appointments are not shown, show them
             appointmentArrayAdapter = new ArrayAdapter<>(book.this,
-                    android.R.layout.simple_list_item_1, dbHelper.getAllAppointments());
+                    android.R.layout.simple_list_item_1, appointments);
             lv_AppointmentList.setAdapter(appointmentArrayAdapter);
         }
     }
@@ -145,4 +142,5 @@ public class book extends AppCompatActivity {
         // Handle search icon click
         Toast.makeText(this, "Search clicked", Toast.LENGTH_SHORT).show();
         return true;
-    }}
+    }
+}
