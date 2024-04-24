@@ -16,7 +16,7 @@ public class login extends AppCompatActivity {
     private Button signupButton;
 
     private DBHelper dbHelper; // Add this line
-//
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

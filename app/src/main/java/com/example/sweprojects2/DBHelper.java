@@ -4,9 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -117,6 +121,43 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         else return true;
     }
+    public boolean addAppointment(bookO appointment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // Since appointmentID is auto-incremented, we don't need to put it into ContentValues
+        values.put(ClientID, appointment.getClientID());
+        values.put(Date, appointment.getDate() != null ? appointment.getDate() : null);
+        values.put(Time, appointment.getTime() != null ? appointment.getTime() : null);
+        values.put(StaffID, appointment.getStaffID());
+        values.put(StaffName, appointment.getStaffName() != null ? appointment.getStaffName() : null);
+
+        // Insert the new row, returning the primary key value of the new row
+        long result = db.insert(Appointment, null, values);
+        db.close(); // Close database connection
+
+        // Check if insertion was successful
+        return result != -1;
+    }
+    public boolean deleteOneAppointment(bookO appointment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create SQL delete query
+        String queryString = "DELETE FROM " + Appointment + " WHERE " + AppointmentID + " = " + appointment.getAppointmentID();
+
+        // Execute the query
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            cursor.close(); // Close the cursor to release resources
+            db.close(); // Close the database connection
+            return true; // The deletion was successful
+        } else {
+            cursor.close(); // Close the cursor to release resources
+            db.close(); // Close the database connection
+            return false; // The deletion failed (e.g., no row found)
+        }
+    }
+
     public boolean isEmailExists(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
@@ -153,7 +194,6 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         int clientId = -1;
-
         try {
             String query = "SELECT " + ClientID + " FROM " + Client + " WHERE " + Email + "=?";
             cursor = db.rawQuery(query, new String[]{email});
@@ -170,6 +210,80 @@ public class DBHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
+    public List<bookO> getAllAppointments() {
+        List<bookO> returnList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + Appointment;
+        Cursor cursor = db.rawQuery(queryString, null);
+        try {
+            if (cursor.moveToFirst()) {
+                int appointmentIDIndex = cursor.getColumnIndex(AppointmentID);
+                int clientIDIndex = cursor.getColumnIndex(ClientID);
+                int staffIDIndex = cursor.getColumnIndex(StaffID);
+                int dateIndex = cursor.getColumnIndex(Date);
+                int timeIndex = cursor.getColumnIndex(Time);
+                int staffNameIndex = cursor.getColumnIndex(StaffName);
+                int serviceNameIndex = cursor.getColumnIndex(ServiceName);
 
+                while (!cursor.isAfterLast()) {
+                    if (appointmentIDIndex != -1) {
+                        int appointmentID = cursor.getInt(appointmentIDIndex);
+                        int clientID = cursor.getInt(clientIDIndex);
+                        int staffID = cursor.getInt(staffIDIndex);
+                        String date = cursor.getString(dateIndex);
+                        String time = cursor.getString(timeIndex);
+                        String staffName = cursor.getString(staffNameIndex);
+                        String serviceName = cursor.getString(serviceNameIndex);
+
+                        bookO newAppointment = new bookO(appointmentID, clientID, staffID, date, time, staffName, serviceName);
+                        returnList.add(newAppointment);
+                    }
+                    cursor.moveToNext();
+                }
+            }
+        } finally {
+            cursor.close();
+            db.close();
+        }
+        return returnList;
+    }
+
+    public List<bookO> searchAppointmentsByStaffID(int clientID) {
+        List<bookO> returnList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String queryString = "SELECT * FROM " + Appointment + " WHERE " + StaffID + " = ?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{String.valueOf(clientID)});
+        try {
+            if (cursor.moveToFirst()) {
+                int appointmentIDIndex = cursor.getColumnIndex(AppointmentID);
+                int staffIDIndex = cursor.getColumnIndex(StaffID);
+                int dateIndex = cursor.getColumnIndex(Date);
+                int timeIndex = cursor.getColumnIndex(Time);
+                int staffNameIndex = cursor.getColumnIndex(StaffName);
+                int serviceNameIndex = cursor.getColumnIndex(ServiceName);
+
+                while (!cursor.isAfterLast()) {
+                    if (appointmentIDIndex != -1 && staffIDIndex != -1 && dateIndex != -1 && timeIndex != -1 && staffNameIndex != -1 && serviceNameIndex != -1) {
+                        int appointmentID = cursor.getInt(appointmentIDIndex);
+                        int staffID = cursor.getInt(staffIDIndex);
+                        String date = cursor.getString(dateIndex);
+                        String time = cursor.getString(timeIndex);
+                        String staffName = cursor.getString(staffNameIndex);
+                        String serviceNameRetrieved = cursor.getString(serviceNameIndex);
+
+                        bookO newAppointment = new bookO(appointmentID, clientID, staffID, date, time, staffName, serviceNameRetrieved);
+                        returnList.add(newAppointment);
+                    }
+                    cursor.moveToNext();
+                }
+            }
+        } finally {
+            cursor.close();
+            db.close();
+        }
+        return returnList;
+    }
 }
+
 

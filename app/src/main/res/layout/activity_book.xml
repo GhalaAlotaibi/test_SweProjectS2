@@ -4,150 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".book">
 
-    <ScrollView
-        android:layout_width="481dp"
-        android:layout_height="836dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <EditText
+        android:id="@+id/service_id"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Service Name"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="838dp">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="353dp"
-                    android:layout_height="219dp"
-                    android:layout_marginBottom="560dp"
-                    android:src="@drawable/bookemovebgpreview"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <LinearLayout
-                    android:layout_width="327dp"
-                    android:layout_height="453dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/white_background"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3">
-
-                    <EditText
-                        android:id="@+id/editTextService"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@drawable/white_background_edittext"
-                        android:drawableStart="@android:drawable/btn_star"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
-                        android:hint="Service "
-                        android:inputType="text"
-                        android:paddingStart="10dp"
-                        android:textColorHint="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/editTextStaff"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@drawable/white_background_edittext"
-                        android:drawableStart="@android:drawable/ic_menu_my_calendar"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
-                        android:hint="Staff"
-                        android:inputType="text"
-                        android:paddingStart="10dp"
-                        android:textColorHint="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/editTextDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@drawable/white_background_edittext"
-                        android:drawableStart="@android:drawable/ic_menu_today"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
-                        android:hint="Date"
-                        android:inputType="date"
-                        android:paddingStart="10dp"
-                        android:textColorHint="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@drawable/white_background_edittext"
-                        android:drawableStart="@android:drawable/ic_menu_recent_history"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
-                        android:hint="Time "
-                        android:inputType="time"
-                        android:paddingStart="10dp"
-                        android:textColorHint="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button2"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="19dp"
-                        android:background="@drawable/button_background"
-                        android:gravity="center"
-                        android:text="Book"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="42dp"
-                    android:layout_height="43dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="59dp"
-                    android:layout_marginEnd="18dp"
-                    android:src="?attr/homeAsUpIndicator"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView3"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                    app:layout_constraintHorizontal_bias="0.138"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="473dp"
-        android:layout_height="61dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <EditText
+        android:id="@+id/staff_id"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Staff ID Number"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_id"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <EditText
+        android:id="@+id/time_id"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Time"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/staff_id"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <EditText
+        android:id="@+id/date_id"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_id"
+        app:layout_constraintVertical_bias="0.2" /> <!-- Adjusted vertical bias -->
+
+    <Button
+        android:id="@+id/btn_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.348" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.348" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent" /> <!-- Constraint added to start of parent -->
+
+    <ListView
+        android:id="@+id/lv_AppointmentList"
+        android:layout_width="357dp"
+        android:layout_height="334dp"
+        android:layout_marginStart="16dp"
+        android:focusableInTouchMode="false"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
